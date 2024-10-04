@@ -10,4 +10,22 @@
       Helping match makers with people who want things made
     </p>
   </div>
+  <%= if @current_user do %>
+  <% else %>
+    <div class="pt-8">
+      <.link
+        href={~p"/users/log_in"}
+        class="btn btn-primary me-5"
+      >
+        Log in
+      </.link>
+
+      <.link
+        href={~p"/users/register"}
+        class="btn btn-outline btn-primary"
+      >
+        Register
+      </.link>
+    </div>
+  <% end %>
 </div>

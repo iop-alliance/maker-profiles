@@ -35,3 +35,5 @@ makerprofiles-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# Ignore environment variables config
+/.env

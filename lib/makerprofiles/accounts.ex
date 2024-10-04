@@ -4,9 +4,12 @@ defmodule Makerprofiles.Accounts do
   """
 
   import Ecto.Query, warn: false
+  import Ecto.Changeset
+
   alias Makerprofiles.Repo
 
   alias Makerprofiles.Accounts.{User, UserToken, UserNotifier}
+  alias Makerprofiles.Maker.Profile
 
   ## Database getters
 
@@ -77,6 +80,7 @@ defmodule Makerprofiles.Accounts do
   def register_user(attrs) do
     %User{}
     |> User.registration_changeset(attrs)
+    |> put_assoc(:profile, %Profile{})  # Automatically associate an empty profile
     |> Repo.insert()
   end
 

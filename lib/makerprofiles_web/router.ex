@@ -68,6 +68,15 @@ defmodule MakerprofilesWeb.Router do
       on_mount: [{MakerprofilesWeb.UserAuth, :ensure_authenticated}] do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
+
+      live "/profiles", ProfileLive.Index, :index
+      # live "/profiles/new", ProfileLive.Index, :new
+      live "/profiles/:id/edit", ProfileLive.Index, :edit
+
+      live "/profiles/me", ProfileLive.MyProfile
+      live "/profiles/me", ProfileLive.MyProfile, :edit
+      live "/profiles/:id", ProfileLive.Show, :show
+      live "/profiles/:id/show/edit", ProfileLive.Show, :edit
     end
   end
 
