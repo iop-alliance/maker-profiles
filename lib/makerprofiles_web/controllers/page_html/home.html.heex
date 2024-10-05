@@ -1,31 +1,77 @@
 <.flash_group flash={@flash} />
-<div class="left-[40rem] fixed inset-y-0 right-0 z-0 hidden lg:block xl:left-[50rem]">
-</div>
-<div class="px-4 py-10 sm:px-6 sm:py-28 lg:px-8 xl:px-28 xl:py-32">
-  <div class="mx-auto max-w-xl lg:mx-0">
-    <p class="text-[2rem] mt-4 font-semibold leading-10 tracking-tighter text-zinc-900 text-balance">
-      Maker Profiles
-    </p>
-    <p class="mt-4 text-base leading-7 text-zinc-600">
-      Helping match makers with people who want things made
-    </p>
-  </div>
-  <%= if @current_user do %>
-  <% else %>
-    <div class="pt-8">
-      <.link
-        href={~p"/users/log_in"}
-        class="btn btn-primary me-5"
-      >
-        Log in
-      </.link>
-
-      <.link
-        href={~p"/users/register"}
-        class="btn btn-outline btn-primary"
-      >
-        Register
-      </.link>
+<div class="flex flex-1 justify-center py-16">
+  <div class="layout-content-container flex flex-col max-w-5xl flex-1">
+    <div
+      class="hero min-h-[50dvh]"
+      style="background-image: url(https://cdn.usegalileo.ai/sdxl10/c0eec962-8d9c-4ec3-b77a-c3681f6fbb62.png);">
+      <div class="hero-overlay bg-opacity-60"></div>
+      <div class="hero-content text-neutral-content text-center">
+        <div class="max-w-md">
+          <h1 class="mb-5 text-4xl font-bold text-white drop-shadow-lg">Connect with makers from around the world</h1>
+          <%= if !@current_user do %>
+            <div class="pt-8 font-bold">
+              <.link
+                href={~p"/users/register"}
+                class="btn btn-lg btn-primary me-5"
+              >
+                Join
+              </.link>
+              or
+              <.link
+                href={~p"/users/log_in"}
+                class="btn btn-lg ms-5"
+              >
+                Log in
+              </.link>
+            </div>
+          <% end %>
+        </div>
+      </div>
     </div>
-  <% end %>
+    <h2 class="text-[#1C1D22] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Featured Makers</h2>
+    <div class="flex gap-4 bg-[#F9FAFA] px-4 py-3">
+      <div
+        class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-[70px] w-fit"
+        style='background-image: url("https://cdn.usegalileo.ai/stability/5f32a5b7-217f-4002-b17d-3ab8115cfdcd.png");'
+      ></div>
+      <div class="flex flex-1 flex-col justify-center">
+        <p class="text-[#1C1D22] text-base font-medium leading-normal">Sarah O'Brien</p>
+        <p class="text-[#3C3F4A] text-sm font-normal leading-normal">View projects</p>
+        <p class="text-[#3C3F4A] text-sm font-normal leading-normal">3D printing, CAD modeling, Product design</p>
+      </div>
+    </div>
+    <div class="flex gap-4 bg-[#F9FAFA] px-4 py-3">
+      <div
+        class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-[70px] w-fit"
+        style='background-image: url("https://cdn.usegalileo.ai/stability/0f3ca2e7-3814-4dd9-aff9-709fb5b48202.png");'
+      ></div>
+      <div class="flex flex-1 flex-col justify-center">
+        <p class="text-[#1C1D22] text-base font-medium leading-normal">Samuel Johnson</p>
+        <p class="text-[#3C3F4A] text-sm font-normal leading-normal">View projects</p>
+        <p class="text-[#3C3F4A] text-sm font-normal leading-normal">Laser cutting, Woodworking</p>
+      </div>
+    </div>
+    <div class="flex gap-4 bg-[#F9FAFA] px-4 py-3">
+      <div
+        class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-[70px] w-fit"
+        style='background-image: url("https://cdn.usegalileo.ai/stability/165b341b-5b83-46bc-b701-a4cdeed34892.png");'
+      ></div>
+      <div class="flex flex-1 flex-col justify-center">
+        <p class="text-[#1C1D22] text-base font-medium leading-normal">Jenny Li</p>
+        <p class="text-[#3C3F4A] text-sm font-normal leading-normal">View projects</p>
+        <p class="text-[#3C3F4A] text-sm font-normal leading-normal">Electronics, DIY robotics</p>
+      </div>
+    </div>
+    <div class="flex gap-4 bg-[#F9FAFA] px-4 py-3">
+      <div
+        class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-[70px] w-fit"
+        style='background-image: url("https://cdn.usegalileo.ai/stability/b4484b1a-10c1-46ea-80e2-b4336af51bb9.png");'
+      ></div>
+      <div class="flex flex-1 flex-col justify-center">
+        <p class="text-[#1C1D22] text-base font-medium leading-normal">Carlos Garcia</p>
+        <p class="text-[#3C3F4A] text-sm font-normal leading-normal">View projects</p>
+        <p class="text-[#3C3F4A] text-sm font-normal leading-normal">Product design, 3D printed jewelry</p>
+      </div>
+    </div>
+  </div>
 </div>
