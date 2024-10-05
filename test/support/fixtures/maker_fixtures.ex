@@ -18,4 +18,18 @@ defmodule Makerprofiles.MakerFixtures do
 
     profile
   end
+
+  @doc """
+  Generate a skill.
+  """
+  def skill_fixture(attrs \\ %{}) do
+    {:ok, skill} =
+      attrs
+      |> Enum.into(%{
+        name: "some name"
+      })
+      |> Makerprofiles.Maker.create_skill()
+
+    skill
+  end
 end
