@@ -20,7 +20,7 @@ defmodule MakerprofilesWeb.Router do
   scope "/", MakerprofilesWeb do
     pipe_through :browser
 
-    # get "/", PageController, :home
+    get "/about", PageController, :about
     live "/", HomeLive.Index
   end
 

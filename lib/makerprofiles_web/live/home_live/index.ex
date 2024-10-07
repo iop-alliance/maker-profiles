@@ -10,8 +10,8 @@ defmodule MakerprofilesWeb.HomeLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    skills_query = from s in Skill, order_by: [{:asc, :name}], limit: 3
-    latest_profiles = Maker.list_profiles(limit: 4, sort: %{sort_by: :updated_at, sort_order: :desc}, preload: [skills: skills_query])
+    # skills_query = from s in Skill, order_by: [{:asc, :name}], limit: 3
+    latest_profiles = Maker.list_profiles(limit: 4, sort: %{sort_by: :updated_at, sort_order: :desc}, preload: [:skills])
 
     socket =
       socket
