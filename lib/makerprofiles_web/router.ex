@@ -73,11 +73,12 @@ defmodule MakerprofilesWeb.Router do
       live "/profiles", ProfileLive.Index, :index
       # live "/profiles/new", ProfileLive.Index, :new
 
-      live "/profiles/me", ProfileLive.MyProfile
-      live "/profiles/me/edit", ProfileLive.MyProfile, :edit
+      # live "/profiles/me", ProfileLive.MyProfile
+      # live "/profiles/me/edit", ProfileLive.MyProfile, :edit
       live "/profiles/:id", ProfileLive.Show, :show
-      live "/profiles/:id/edit", ProfileLive.Index, :edit
-      live "/profiles/:id/show/edit", ProfileLive.Show, :edit
+      live "/profiles/:id/edit-profile", ProfileLive.Show, :edit_profile
+      # live "/profiles/:id/edit", ProfileLive.Index, :edit
+      # live "/profiles/:id/show/edit", ProfileLive.Show, :edit
 
       live "/skills", SkillLive.Index, :index
       live "/skills/new", SkillLive.Index, :new
