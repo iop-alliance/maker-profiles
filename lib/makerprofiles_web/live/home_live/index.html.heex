@@ -40,7 +40,7 @@
                 </div>
               <% else %>
                 <div class="w-16 h-16 bg-indigo-100 mx-auto rounded-full shadow-2xl flex items-center justify-center text-indigo-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" viewBox="0 0 20 20" fill="currentColor"> 
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 mx-auto" viewBox="0 0 20 20" fill="currentColor"> 
                     <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
                   </svg>
                 </div>
@@ -48,13 +48,11 @@
             </div>
             <div class="flex flex-1 flex-col justify-center gap-2">
               <p class="text-[#1C1D22] text-lg font-medium leading-normal"><%= profile.name %></p>
-              <div class="flex items-start space-x-3">
-                <%= for skill <- profile.skills do %>
-                  <div class="text-sm rounded-full py-1 px-4 border bg-white border-gray-300">
-                    <%= skill.name %>
-                  </div>
-                <% end %>
-              </div>
+              <%= if profile.skills != [] do %>
+                <p class="text-[#3C3F4A] text-sm font-normal leading-normal">
+                  <%= profile.skills |> Enum.take(3) |> Enum.map(&(&1.name)) |> Enum.join(", ") %><%= if length(profile.skills) > 3 do %>, &hellip;<% end %>
+                </p>
+              <% end %>              
             </div>
           </div>
         </.link>
