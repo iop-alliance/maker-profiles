@@ -7,7 +7,7 @@ defmodule Makerprofiles.Maker do
   alias Makerprofiles.Accounts
   alias Makerprofiles.Repo
 
-  alias Makerprofiles.Maker.{Profile, ProfileSkill}
+  alias Makerprofiles.Maker.{Profile, ProfileSkill, Skill}
 
   @doc """
   Returns the list of profiles.
@@ -220,6 +220,23 @@ defmodule Makerprofiles.Maker do
   """
   def change_skill(%Skill{} = skill, attrs \\ %{}) do
     Skill.changeset(skill, attrs)
+  end
+
+  def add_skill(profile, skill_text) when is_binary(skill_text) do
+    skill =
+      case Repo.get_by(Skill, %{name: skill_text}) do
+        nil ->
+          %Skill{} |> Skill.changeset(%{name: skill_text}) |> Repo.insert!()
+
+        skill ->
+          skill
+      end
+
+    add_skill(profile, skill.id)
+  end
+
+  def add_skill(%Profile{} = profile, skill_id) do
+    add_skill(profile.id, skill_id)
   end
 
   def add_skill(profile_id, skill_id) do

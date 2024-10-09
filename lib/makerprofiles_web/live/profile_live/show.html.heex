@@ -1,29 +1,56 @@
-<.header>
-  Profile <%= @profile.id %>
-  <:subtitle>This is a profile record from your database.</:subtitle>
-  <:actions>
-  <%= if @current_user && @profile.user.id == @current_user.id do %>
-    <.link patch={~p"/profiles/#{@profile}/show/edit"} phx-click={JS.push_focus()}>
-      <.button>Edit profile</.button>
-    </.link>
-  <% end %>
-  </:actions>
-</.header>
-
-<.list>
-  <:item title="Name"><%= @profile.name %></:item>
-  <:item title="Bio"><%= @profile.bio %></:item>
-</.list>
-
-<.back navigate={~p"/profiles"}>Back to profiles</.back>
-
-<.modal :if={@live_action == :edit} id="profile-modal" show on_cancel={JS.patch(~p"/profiles/#{@profile}")}>
-  <.live_component
-    module={MakerprofilesWeb.ProfileLive.FormComponent}
-    id={@profile.id}
-    title={@page_title}
-    action={@live_action}
-    profile={@profile}
-    patch={~p"/profiles/#{@profile}"}
-  />
-</.modal>
+<div
+  class="relative flex size-full min-h-screen flex-col bg-slate-50 justify-between group/design-root overflow-x-hidden"
+  style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'
+>
+  <div>
+    <div>
+      <div class="flex items-center bg-slate-50 p-4 pb-2 justify-between">
+        <div class="text-[#0d151c] text-2xl">
+          My Profile
+        </div>
+        <div class="flex items-center justify-end">
+          <%= if @current_user && @profile.user.id == @current_user.id do %>
+            <.link patch={~p"/profiles/#{@profile}/edit-profile"} phx-click={JS.push_focus()}>
+              <.button>Edit Profile</.button>
+            </.link>
+          <% end %>
+        </div>
+      </div>
+      <div :if={@live_action != :edit_profile} class="flex p-4 @container" id="profile-details">
+        <div class="flex w-full flex-col gap-4 items-center">
+          <div class="flex gap-4 flex-col items-center">
+            <.avatar profile={@profile} size={32} />
+            <div class="flex flex-col justify-center">
+              <p class="text-[#0d151c] text-3xl font-bold leading-tight tracking-[-0.015em]"><%= @profile.name %></p>
+            </div>
+            <div>
+              <p class="text-[#0d151c] text-center font-normal leading-normal pb-3 pt-1 px-4">
+                  <%= @profile.bio %>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div :if={@live_action == :edit_profile}>
+        <.live_component
+          module={MakerprofilesWeb.ProfileLive.ProfileFormComponent}
+          id={@profile.id}
+          title={@page_title}
+          action={@live_action}
+          profile={@profile}
+          patch={~p"/profiles/#{@profile}"}
+        />
+      </div>
+      <div>
+        <h2 class="text-[#0d151c] text-xl text-center font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Skills</h2>
+        <div class="flex gap-3 p-3 flex-wrap pr-4 justify-center">
+          <%= for skill <- @profile.skills do %>
+            <div class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-[#e7eef4] pl-4 pr-4">
+              <p class="text-[#0d151c] text-sm font-medium leading-normal"><%= skill.name %></p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

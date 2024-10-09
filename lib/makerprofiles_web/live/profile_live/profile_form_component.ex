@@ -1,4 +1,4 @@
-defmodule MakerprofilesWeb.ProfileLive.FormComponent do
+defmodule MakerprofilesWeb.ProfileLive.ProfileFormComponent do
   use MakerprofilesWeb, :live_component
 
   alias Makerprofiles.Maker
@@ -33,26 +33,29 @@ defmodule MakerprofilesWeb.ProfileLive.FormComponent do
   end
 
   def handle_event("save", %{"profile" => profile_params}, socket) do
-
     profile_image_location =
       consume_uploaded_entries(socket, :profile_image, fn _meta, entry ->
         {:ok, Path.join(@do_url, filename(entry))}
       end)
 
-    profile_params = Map.put(profile_params, "profile_image_location", Enum.at(profile_image_location, 0))
-    IO.inspect(profile_params)
-    save_profile(socket, socket.assigns.action, profile_params)
+    IO.inspect(profile_image_location)
+    # don't add :profile_image_location to profile_params unless an image
+    # has been added to the form, otherwise :profile_image_location
+    # will be replaced with NULL
+    profile_params =
+      case length(profile_image_location) do
+        0 ->
+          profile_params
+        _ ->
+          Map.put(profile_params, "profile_image_location", Enum.at(profile_image_location, 0))
+      end
+
+    save_profile(socket, profile_params)
   end
 
-  def handle_event("cancel", %{"ref" => ref}, socket) do
-    {:noreply, cancel_upload(socket, :profile_image, ref)}
-  end
-
-  defp save_profile(socket, :edit, profile_params) do
+  defp save_profile(socket, profile_params) do
     case Maker.update_profile(socket.assigns.profile, profile_params) do
       {:ok, profile} ->
-        notify_parent({:saved, profile})
-
         {:noreply,
          socket
          |> put_flash(:info, "Profile updated successfully")
@@ -62,23 +65,6 @@ defmodule MakerprofilesWeb.ProfileLive.FormComponent do
         {:noreply, assign(socket, form: to_form(changeset))}
     end
   end
-
-  defp save_profile(socket, :new, profile_params) do
-    case Maker.create_profile(profile_params) do
-      {:ok, profile} ->
-        notify_parent({:saved, profile})
-
-        {:noreply,
-         socket
-         |> put_flash(:info, "Profile created successfully")
-         |> push_patch(to: socket.assigns.patch)}
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        {:noreply, assign(socket, form: to_form(changeset))}
-    end
-  end
-
-  defp notify_parent(msg), do: send(self(), {__MODULE__, msg})
 
   defp presign_upload(entry, socket) do
     config = %{
