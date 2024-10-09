@@ -3,6 +3,8 @@ defmodule MakerprofilesWeb.ProfileLive.Show do
 
   alias Makerprofiles.Maker
 
+  import MakerprofilesWeb.CustomComponents
+
   @impl true
   def mount(_params, _session, socket) do
     user = socket.assigns.current_user

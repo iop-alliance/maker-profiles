@@ -19,20 +19,7 @@
       <div :if={@live_action != :edit_profile} class="flex p-4 @container" id="profile-details">
         <div class="flex w-full flex-col gap-4 items-center">
           <div class="flex gap-4 flex-col items-center">
-            <%= if @profile.profile_image_location do %>
-              <div class="avatar flex items-center justify-center">
-                <div class="w-32 rounded-full shadow-2xl">
-                  <img src={@profile.profile_image_location} alt="#{@profile.name}'s profile image" />
-                </div>
-              </div>
-            <% else %>
-              <div class="w-32 h-32 bg-indigo-100 mx-auto rounded-full shadow-2xl flex items-center justify-center text-indigo-500">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5/6 w-5/6" viewBox="0 0 20 20" fill="currentColor"> 
-                  <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-                </svg>
-              </div>
-            <% end %>
-
+            <.avatar profile={@profile} size={32} />
             <div class="flex flex-col justify-center">
               <p class="text-[#0d151c] text-3xl font-bold leading-tight tracking-[-0.015em]"><%= @profile.name %></p>
             </div>
