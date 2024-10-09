@@ -4,6 +4,8 @@ defmodule MakerprofilesWeb.ProfileLive.Index do
   alias Makerprofiles.Maker
   alias Makerprofiles.Maker.Profile
 
+  import MakerprofilesWeb.CustomComponents
+
   @impl true
   def mount(_params, _session, socket) do
     {:ok, stream(socket, :profiles, Maker.list_profiles())}

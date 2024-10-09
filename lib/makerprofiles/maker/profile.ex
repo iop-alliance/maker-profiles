@@ -2,12 +2,16 @@ defmodule Makerprofiles.Maker.Profile do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Makerprofiles.Maker.Skill
+
   schema "profiles" do
     field :bio, :string
     field :name, :string
     field :profile_image_location, :string, default: ""
 
     belongs_to :user, Makerprofiles.Accounts.User
+
+    many_to_many :skills, Skill, join_through: "profile_skills"
 
     timestamps(type: :utc_datetime)
   end
