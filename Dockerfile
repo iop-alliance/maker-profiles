@@ -21,7 +21,7 @@ ARG RUNNER_IMAGE="debian:${DEBIAN_VERSION}"
 FROM ${BUILDER_IMAGE} as builder
 
 # install build dependencies
-# nodejs is needed for the 'RUN npm 
+# npm is needed for the 'RUN npm ...' command later in the flow
 RUN apt-get update -y && apt-get install -y build-essential git npm \
     && apt-get clean && rm -f /var/lib/apt/lists/*_*
 
@@ -52,7 +52,7 @@ COPY lib lib
 
 COPY assets assets
 
-# t
+# Needed for daisyui
 RUN npm --prefix ./assets ci --progress=false --no-audit --loglevel=error
 
 # compile assets
